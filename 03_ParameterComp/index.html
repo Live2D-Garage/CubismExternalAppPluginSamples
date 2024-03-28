@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="GitLab Pages">
+  <title>Cubism Editor Parameter Control</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <h1>Parameter Control</h1>
+  <h2>Connection</h2>
+  <div id="connection">
+    Address: 
+    <input type="text" id="server" value="ws://localhost:22033" />
+    <br>
+    <button type="button" class="custom-button-connection" onclick="connect()">Connect</button>
+    <button type="button" class="custom-button-connection" onclick="disconnect()">Disconnect</button>
+    <br>
+    State: 
+    <label id="state">Disconnected</label>
+    <br>
+    <br>
+    Connection Error Log<br>
+    <textarea id="textarea_errorLog" class="output-textarea-errorLog"></textarea>
+  </div>
+  <br>
+  
+  <div id="parameter_preview">
+    <div>
+      <h2>Parameter Comp</h2>
+      <div>
+        No.01: 
+        <button type="button" class="custom-button-control" onclick="pushParam(1)">Push</button>
+        <button type="button" class="custom-button-control" onclick="popParam(1)">Pop</button>
+        <button type="button" class="custom-button-control" onclick="clearParam(1)">Clear</button>
+        <label id="state_1" class="custom-label-state">--</label>
+        memo: 
+        <input type="text" id="memo_1" class="custom-text-memo" value="" />
+      </div>
+      <div>
+        No.02: 
+        <button type="button" class="custom-button-control" onclick="pushParam(2)">Push</button>
+        <button type="button" class="custom-button-control" onclick="popParam(2)">Pop</button>
+        <button type="button" class="custom-button-control" onclick="clearParam(2)">Clear</button>
+        <label id="state_2" class="custom-label-state">--</label>
+        memo: 
+        <input type="text" id="memo_2" class="custom-text-memo" value="" />
+      </div>
+      <div>
+        No.03: 
+        <button type="button" class="custom-button-control" onclick="pushParam(3)">Push</button>
+        <button type="button" class="custom-button-control" onclick="popParam(3)">Pop</button>
+        <button type="button" class="custom-button-control" onclick="clearParam(3)">Clear</button>
+        <label id="state_3" class="custom-label-state">--</label>
+        memo: 
+        <input type="text" id="memo_3" class="custom-text-memo" value="" />
+      </div>
+      <div>
+        No.04: 
+        <button type="button" class="custom-button-control" onclick="pushParam(4)">Push</button>
+        <button type="button" class="custom-button-control" onclick="popParam(4)">Pop</button>
+        <button type="button" class="custom-button-control" onclick="clearParam(4)">Clear</button>
+        <label id="state_4" class="custom-label-state">--</label>
+        memo: 
+        <input type="text" id="memo_4" class="custom-text-memo" value="" />
+      </div>
+      <div>
+        No.05: 
+        <button type="button" class="custom-button-control" onclick="pushParam(5)">Push</button>
+        <button type="button" class="custom-button-control" onclick="popParam(5)">Pop</button>
+        <button type="button" class="custom-button-control" onclick="clearParam(5)">Clear</button>
+        <label id="state_5" class="custom-label-state">--</label>
+        memo: 
+        <input type="text" id="memo_5" class="custom-text-memo" value="" />
+      </div>
+      <div>
+        No.06: 
+        <button type="button" class="custom-button-control" onclick="pushParam(6)">Push</button>
+        <button type="button" class="custom-button-control" onclick="popParam(6)">Pop</button>
+        <button type="button" class="custom-button-control" onclick="clearParam(6)">Clear</button>
+        <label id="state_6" class="custom-label-state">--</label>
+        memo: 
+        <input type="text" id="memo_6" class="custom-text-memo" value="" />
+      </div>
+      <div>
+        No.07: 
+        <button type="button" class="custom-button-control" onclick="pushParam(7)">Push</button>
+        <button type="button" class="custom-button-control" onclick="popParam(7)">Pop</button>
+        <button type="button" class="custom-button-control" onclick="clearParam(7)">Clear</button>
+        <label id="state_7" class="custom-label-state">--</label>
+        memo: 
+        <input type="text" id="memo_7" class="custom-text-memo" value="" />
+      </div>
+      <div>
+        No.08: 
+        <button type="button" class="custom-button-control" onclick="pushParam(8)">Push</button>
+        <button type="button" class="custom-button-control" onclick="popParam(8)">Pop</button>
+        <button type="button" class="custom-button-control" onclick="clearParam(8)">Clear</button>
+        <label id="state_8" class="custom-label-state">--</label>
+        memo: 
+        <input type="text" id="memo_8" class="custom-text-memo" value="" />
+      </div>
+      <div>
+        No.09: 
+        <button type="button" class="custom-button-control" onclick="pushParam(9)">Push</button>
+        <button type="button" class="custom-button-control" onclick="popParam(9)">Pop</button>
+        <button type="button" class="custom-button-control" onclick="clearParam(9)">Clear</button>
+        <label id="state_9" class="custom-label-state">--</label>
+        memo: 
+        <input type="text" id="memo_9" class="custom-text-memo" value="" />
+      </div>
+      <div>
+        No.10: 
+        <button type="button" class="custom-button-control" onclick="pushParam(10)">Push</button>
+        <button type="button" class="custom-button-control" onclick="popParam(10)">Pop</button>
+        <button type="button" class="custom-button-control" onclick="clearParam(10)">Clear</button>
+        <label id="state_10" class="custom-label-state">--</label>
+        memo: 
+        <input type="text" id="memo_10" class="custom-text-memo" value="" />
+      </div>
+      <div>
+        No.11: 
+        <button type="button" class="custom-button-control" onclick="pushParam(11)">Push</button>
+        <button type="button" class="custom-button-control" onclick="popParam(11)">Pop</button>
+        <button type="button" class="custom-button-control" onclick="clearParam(11)">Clear</button>
+        <label id="state_11" class="custom-label-state">--</label>
+        memo: 
+        <input type="text" id="memo_11" class="custom-text-memo" value="" />
+      </div>
+      <div>
+        No.12: 
+        <button type="button" class="custom-button-control" onclick="pushParam(12)">Push</button>
+        <button type="button" class="custom-button-control" onclick="popParam(12)">Pop</button>
+        <button type="button" class="custom-button-control" onclick="clearParam(12)">Clear</button>
+        <label id="state_12" class="custom-label-state">--</label>
+        memo: 
+        <input type="text" id="memo_12" class="custom-text-memo" value="" />
+      </div>
+      <div>
+        No.13: 
+        <button type="button" class="custom-button-control" onclick="pushParam(13)">Push</button>
+        <button type="button" class="custom-button-control" onclick="popParam(13)">Pop</button>
+        <button type="button" class="custom-button-control" onclick="clearParam(13)">Clear</button>
+        <label id="state_13" class="custom-label-state">--</label>
+        memo: 
+        <input type="text" id="memo_13" class="custom-text-memo" value="" />
+      </div>
+      <div>
+        No.14: 
+        <button type="button" class="custom-button-control" onclick="pushParam(14)">Push</button>
+        <button type="button" class="custom-button-control" onclick="popParam(14)">Pop</button>
+        <button type="button" class="custom-button-control" onclick="clearParam(14)">Clear</button>
+        <label id="state_14" class="custom-label-state">--</label>
+        memo: 
+        <input type="text" id="memo_14" class="custom-text-memo" value="" />
+      </div>
+      <div>
+        No.15: 
+        <button type="button" class="custom-button-control" onclick="pushParam(15)">Push</button>
+        <button type="button" class="custom-button-control" onclick="popParam(15)">Pop</button>
+        <button type="button" class="custom-button-control" onclick="clearParam(15)">Clear</button>
+        <label id="state_15" class="custom-label-state">--</label>
+        memo: 
+        <input type="text" id="memo_15" class="custom-text-memo" value="" />
+      </div>
+      <div>
+        No.16: 
+        <button type="button" class="custom-button-control" onclick="pushParam(16)">Push</button>
+        <button type="button" class="custom-button-control" onclick="popParam(16)">Pop</button>
+        <button type="button" class="custom-button-control" onclick="clearParam(16)">Clear</button>
+        <label id="state_16" class="custom-label-state">--</label>
+        memo: 
+        <input type="text" id="memo_16" class="custom-text-memo" value="" />
+      </div>
+      <br>
+      <div class="split-preview">
+        <div class="split-preview-div">
+          <p class="custom-h01">Cubism Parameters</p>
+          ModelUID:
+          <label id="modelUID">Undefined</label>
+          <br>
+          <br>
+          <table>
+            <tbody id="cubismPreview"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  <script type="text/javascript" src="CEPlugin.js"></script>
+  <script type="text/javascript" src="script.js"></script>
+</body>
+
+</html>

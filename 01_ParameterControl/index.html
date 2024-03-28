@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="GitLab Pages">
+  <title>Cubism Editor Parameter Control</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <h1>Parameter Control</h1>
+  <h2>Connection</h2>
+  <div id="connection">
+    Address: 
+    <input type="text" id="server" value="ws://localhost:22033" />
+    <br>
+    <button type="button" class="custom-button-connection" onclick="connect()">Connect</button>
+    <button type="button" class="custom-button-connection" onclick="disconnect()">Disconnect</button>
+    <br>
+    State: 
+    <label id="state">Disconnected</label>
+    <br>
+    <br>
+    Connection Error Log<br>
+    <textarea id="textarea_errorLog" class="output-textarea-errorLog"></textarea>
+  </div>
+  <br>
+  
+  <div id="parameter_preview">
+    <div>
+      <h2>Parameter Control</h2>
+      <button type="button" class="custom-button-control" onclick="start()">Start</button>
+      <button type="button" class="custom-button-control" onclick="stop()">Stop</button>
+      <br>
+      <div class="split-preview">
+        <div class="split-preview-div">
+          <p class="custom-h01">Cubism Parameters</p>
+          ModelUID:
+          <label id="modelUID">Undefined</label>
+          <br>
+          <br>
+          <table>
+            <tbody id="cubismPreview"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  <script type="text/javascript" src="CEPlugin.js"></script>
+  <script type="text/javascript" src="script.js"></script>
+</body>
+
+</html>

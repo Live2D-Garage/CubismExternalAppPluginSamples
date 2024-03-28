@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="GitLab Pages">
+  <title>Bridge nizima LIVE to Cubism Editor</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <h1>nizima LIVE Bridge (Cubism Editor -> nizima LIVE)</h1>
+  <h2>Connection</h2>
+  <div id="connection">
+    <div class="split-preview">
+      <div class="split-preview-connection-div">
+        <p class="custom-h01">nizima LIVE</p>
+        Address: 
+        <input type="text" id="nl_server" value="ws://localhost:22022" />
+        <br>
+        State: 
+        <label id="nl_state">Disconnected</label>
+      </div>
+      <div class="split-preview-connection-div">
+        <p class="custom-h01">Cubism Editor</p>
+        Address: 
+        <input type="text" id="ce_server" value="ws://localhost:22033" />
+        <br>
+        State: 
+        <label id="ce_state">Disconnected</label>
+      </div>
+      <div class="split-preview-connection-div">
+        Connect and Start synchronization<br>
+        from Cubism Editor to nizima LIVE.<br>
+        <button type="button" id="btn_connect" class="custom-button-connection" onclick="connectAndStartSyncFromCEToNL()">Connect</button>
+        <br>
+        <button disabled type="button" id="btn_disconnect" class="custom-button-connection" onclick="disconnect()">Disconnect</button>
+        <br>
+        State: 
+        <label id="state">Disconnected</label>
+      </div>
+    </div>
+    <br>
+    <div class="split-preview">
+      <div class="split-preview-connection-error-div">
+        nizima LIVE Connection Error Log<br>
+        <textarea id="textarea_errorLogNL" class="output-textarea-errorLog"></textarea>
+      </div>
+      <div class="split-preview-connection-error-div">
+         Cubism Editor Connection Error Log<br>
+        <textarea id="textarea_errorLogCE" class="output-textarea-errorLog"></textarea>
+      </div>
+    </div>
+  </div>
+  <br>
+  
+  <div id="synchronization">
+    <div>
+      <h2>Synchronization</h2>
+      Note: Hiding a page will stop synchronization.
+      <br>
+      <div class="split-preview">
+        <div class="split-preview-param-sync-div">
+          <p class="custom-h01">nizima LIVE Cubism Parameters</p>
+          nizima LIVE ModelId：
+          <label id="nl_modelId">Undefined</label>
+          <br>
+          Slider cannot be operated.
+          <br>
+          <table>
+            <tbody id="nlParameters"></tbody>
+          </table>
+        </div>
+        <div class="split-preview-param-sync-div">
+          <p class="custom-h01">Cubism Editor Cubism Parameters</p>
+          Cubism Editor ModelUID：
+          <label id="ce_modelId">Undefined</label>
+          <br>
+          Slider cannot be operated.
+          <br>
+          <table>
+            <tbody id="ceParameters"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+  
+  <script type="text/javascript" src="CEPlugin.js"></script>
+  <script type="text/javascript" src="nLPlugin.js"></script>
+  <script type="text/javascript" src="script.js"></script>
+</body>
+
+</html>

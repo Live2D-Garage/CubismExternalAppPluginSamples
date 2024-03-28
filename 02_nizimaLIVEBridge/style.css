@@ -1,0 +1,37 @@
+body {
+  font-family: sans-serif;
+  margin: auto;
+  max-width: 1280px;
+}
+
+.split-preview {
+  display: flex;
+}
+
+.split-preview-connection-div {
+  width: 33%;
+}
+
+.split-preview-connection-error-div {
+  width: 50%;
+}
+
+.split-preview-param-sync-div {
+  width: 50%;
+}
+
+.custom-h01 {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.custom-button-connection {
+  width: 100px;
+}
+
+.output-textarea-errorLog {
+  resize: none;
+  width: 95%;
+  height: 100px;
+  overflow-y: scroll;
+}

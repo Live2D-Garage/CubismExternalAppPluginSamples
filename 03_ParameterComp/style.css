@@ -1,0 +1,42 @@
+body {
+  font-family: sans-serif;
+  margin: auto;
+  max-width: 1280px;
+}
+
+.split-preview {
+  display: flex;
+}
+
+.split-preview-div {
+  width: 75%;
+}
+
+.custom-h01 {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.custom-button-connection {
+  width: 100px;
+}
+
+.custom-button-control {
+  width: 70px;
+}
+
+.output-textarea-errorLog {
+  resize: none;
+  width: 60%;
+  height: 100px;
+  overflow-y: scroll;
+}
+
+.custom-label-state {
+  width: 100px;
+  display: inline-block;
+}
+
+.custom-text-memo {
+  width: 400px;
+}
