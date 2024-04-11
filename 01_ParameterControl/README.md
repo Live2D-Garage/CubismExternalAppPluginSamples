@@ -6,27 +6,27 @@ https://live2d-garage.github.io/CubismExternalAppPluginSamples/01_ParameterContr
 セキュリティの面から、HTMLのサンプルをダウンロードして実行した場合は、HTMLを読み込み(または再読み込み)するごとにエディタで許可を与える必要があります。  
   
 ### 利用手順  
-1. Cubism Editorを起動する。  
-2. ファイルメニューから任意のモデルを開く。  
-3. ファイルメニューの「外部アプリケーション連携設定」を選択し、ダイアログを開く。  
-4. 外部アプリケーション連携設定ダイアログからポート番号を設定し、三角ボタンをクリックして外部連携を有効化。  
+1. Cubism Editorを起動します。  
+2. ファイルメニューから任意のモデルを開きます。  
+3. ファイルメニューの「外部アプリケーション連携設定」を選択し、ダイアログを開きます。  
+4. 外部アプリケーション連携設定ダイアログからポート番号を設定し、三角ボタンをクリックして外部連携を有効化します。  
 ![](images/image001.png)  
-5. サンプルHTMLを起動。  
+5. サンプルHTMLを起動します。  
 https://live2d-garage.github.io/CubismExternalAppPluginSamples/01_ParameterControl/index.html  
-6. 「Address」に接続先を設定し、「Connect」をクリック。  
+6. 「Address」に接続先を設定し、「Connect」をクリックします。  
 ![](images/image002.png)  
-   - 接続されると「State」が「Connected」になる。  
+   - 接続されると「State」が「Connected」になります。  
 ![](images/image003.png)  
-   - 接続に失敗すると、「Connection Error Log」にメッセージが表示される。  
+   - 接続に失敗すると、「Connection Error Log」にメッセージが表示されます。  
 (接続先設定が間違っているとき、Cubism Editor側の外部連携を有効化していないとき等)  
 ![](images/image004.png)  
-7. Cubism Editorの外部アプリケーション連携設定ダイアログの接続したアプリケーションの「許可」のチェックボックスにチェックを入れる。  
-これを実施することで、外部アプリケーション連携をすることができる。  
+7. Cubism Editorの外部アプリケーション連携設定ダイアログの接続したアプリケーションの「許可」のチェックボックスにチェックを入れます。  
+これを実施することで、外部アプリケーション連携をすることができます。  
 ![](images/image005.png)  
-8. Parameter Controlの「Start」をクリック。  
+8. Parameter Controlの「Start」をクリックします。  
 ![](images/image006.png)  
-   - Cubism Parameters以下にパラメータ名とスライダー、数値が表示される。  
-スライダーを操作することで、パラメータ値を変更し、モデルに反映される。  
+   - Cubism Parameters以下にパラメータ名とスライダー、数値が表示されます。  
+スライダーを操作することで、パラメータ値を変更することができ、モデルに反映されます。  
 ![](images/image007.png)  
   
 ***

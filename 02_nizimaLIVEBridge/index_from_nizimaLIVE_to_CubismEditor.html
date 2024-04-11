@@ -9,6 +9,14 @@
 </head>
 
 <body>
+  <section id="version_alert_en" hidden>
+    <h2 style="color: #ff0000;">We recommend an editor with API version 0.9.1 or higher.</h2>
+    <a href="https://creatorsforum.live2d.com/c/cubismeditor51alpha/" target="_blank">Download the latest version</a><br>
+  </section>
+  <section id="version_alert_jp" hidden>
+    <h2 style="color: #ff0000;">APIバージョン0.9.1以上のエディタを推奨します。</h2>
+    <a href="https://creatorsforum.live2d.com/c/cubismeditor51alpha/" target="_blank">最新版をダウンロードする</a>
+  </section>
   <h1>nizima LIVE Bridge (nizima LIVE -> Cubism Editor)</h1>
   <h2>Connection</h2>
   <div id="connection">
@@ -39,6 +47,11 @@
         State: 
         <label id="state">Disconnected</label>
       </div>
+    </div>
+    <br>
+    <div>
+      <h2>Control</h2>
+      <button disabled type="button" id="btn_suspendAndResume" class="custom-button-connection" onclick="suspendAndResume()">Suspend</button>
     </div>
     <br>
     <div class="split-preview">
@@ -89,7 +102,8 @@
   
   <script type="text/javascript" src="CEPlugin.js"></script>
   <script type="text/javascript" src="nLPlugin.js"></script>
-  <script type="text/javascript" src="script.js"></script>
+  <script type="text/javascript" src="script_common.js"></script>
+  <script type="text/javascript" src="script_from_nizimaLIVE_to_CubismEditor.js"></script>
 </body>
 
 </html>

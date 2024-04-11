@@ -10,7 +10,9 @@ const cePlugin = new CEPlugin("Cubism Editor Plugin API", storageToken)
 const strClearData = "Empty"
 const strStoredData = "Stored"
 const parameterComp = "Cubism Editor Web Plugin Parameter Comp No"
+const parameterCompMemo = "Cubism Editor Web Plugin Parameter Comp Memo No"
 const parameterCompNumMax = 16
+let loadFileData = null
 
 window.onload = function() {
     for (let i = 1; i <= parameterCompNumMax; i++) {
@@ -20,6 +22,9 @@ window.onload = function() {
         } else {
             document.getElementById("state_" + String(i)).textContent = strClearData
         }
+        
+        const memo = localStorage.getItem(parameterCompMemo + String(i))
+        document.getElementById("memo_" + String(i)).value = memo
     }
 }
 
@@ -61,6 +66,64 @@ function disconnect() {
     console.log("disconnect.")
     stop()
     cePlugin.stop()
+}
+
+function outputFile() {
+    const fileName = document.getElementById("saveName").value
+    if (fileName == "") {
+        window.alert("File name not entered.")
+        return
+    }
+    
+    let saveData = {
+        "Parameters": []
+    };
+    for (let i = 1; i <= parameterCompNumMax; i++) {
+        const paramData = JSON.parse(localStorage.getItem(parameterComp + String(i)))
+        const memo = localStorage.getItem(parameterCompMemo + String(i))
+        saveData.Parameters.push({ "No": String(i), "Param": paramData, "Memo": memo })
+    }
+    
+    const json = JSON.stringify(saveData, null, " ")
+    const blob = new Blob([json], { type: "application/json" })
+    const url = URL.createObjectURL(blob)
+    const linkTag = document.createElement("a")
+    linkTag.href = url
+    linkTag.download = fileName + ".json"
+    linkTag.click()
+    URL.revokeObjectURL(url)
+    linkTag.remove()
+}
+
+function loadFileChanged(input) {
+    loadFileData = input.files[0]
+}
+
+function inputFile() {
+    if (loadFileData == null) {
+        window.alert("File not found.")
+        return
+    }
+    
+    let reader = new FileReader()
+    reader.readAsText(loadFileData)
+    reader.onload = () => {
+        const inputData = JSON.parse(reader.result)
+        for (let param of inputData.Parameters) {
+            const no = param.No
+            if (param.Param != null) {
+                localStorage.setItem(parameterComp + no, JSON.stringify(param.Param))
+                document.getElementById("state_" + no).textContent = strStoredData
+            } else {
+                document.getElementById("state_" + no).textContent = strClearData
+            }
+            
+            if (param.Memo != null) {
+                localStorage.setItem(parameterCompMemo + no, param.Memo)
+                document.getElementById("memo_" + no).value = param.Memo
+            }
+        }
+    }
 }
 
 const prefixText = "text_"
@@ -133,6 +196,13 @@ function popParam(compNo) {
 function clearParam(compNo) {
     localStorage.removeItem(parameterComp + String(compNo))
     document.getElementById("state_" + String(compNo)).textContent = strClearData
+    localStorage.removeItem(parameterCompMemo + String(compNo))
+    document.getElementById("memo_" + String(compNo)).value = ""
+}
+
+function memoTextChanged(compNo) {
+    const memo = document.getElementById("memo_" + String(compNo)).value
+    localStorage.setItem(parameterCompMemo + String(compNo), memo)
 }
 
 function setParameters(data) {

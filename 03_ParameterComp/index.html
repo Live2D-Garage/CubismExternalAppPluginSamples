@@ -9,7 +9,7 @@
 </head>
 
 <body>
-  <h1>Parameter Control</h1>
+  <h1>Parameter Comp</h1>
   <h2>Connection</h2>
   <div id="connection">
     Address: 
@@ -29,7 +29,19 @@
   
   <div id="parameter_preview">
     <div>
-      <h2>Parameter Comp</h2>
+      <h2>Slots</h2>
+      <div>
+        Save:
+        <button type="button" class="custom-button-control" onclick="outputFile()">Save</button>
+        <input type="text" id="saveName" value="" />
+        .json
+      </div>
+      <div>
+        Load:
+        <button type="button" class="custom-button-control" onclick="inputFile()">Load</button>
+        <input type="file" id="loadFile" accept="application/json" onChange="loadFileChanged(this)"></input>
+      </div>
+      <br>
       <div>
         No.01: 
         <button type="button" class="custom-button-control" onclick="pushParam(1)">Push</button>
@@ -37,7 +49,7 @@
         <button type="button" class="custom-button-control" onclick="clearParam(1)">Clear</button>
         <label id="state_1" class="custom-label-state">--</label>
         memo: 
-        <input type="text" id="memo_1" class="custom-text-memo" value="" />
+        <input type="text" id="memo_1" class="custom-text-memo" onchange="memoTextChanged(1)" value="" />
       </div>
       <div>
         No.02: 
@@ -46,7 +58,7 @@
         <button type="button" class="custom-button-control" onclick="clearParam(2)">Clear</button>
         <label id="state_2" class="custom-label-state">--</label>
         memo: 
-        <input type="text" id="memo_2" class="custom-text-memo" value="" />
+        <input type="text" id="memo_2" class="custom-text-memo" onchange="memoTextChanged(2)" value="" />
       </div>
       <div>
         No.03: 
@@ -55,7 +67,7 @@
         <button type="button" class="custom-button-control" onclick="clearParam(3)">Clear</button>
         <label id="state_3" class="custom-label-state">--</label>
         memo: 
-        <input type="text" id="memo_3" class="custom-text-memo" value="" />
+        <input type="text" id="memo_3" class="custom-text-memo" onchange="memoTextChanged(3)" value="" />
       </div>
       <div>
         No.04: 
@@ -64,7 +76,7 @@
         <button type="button" class="custom-button-control" onclick="clearParam(4)">Clear</button>
         <label id="state_4" class="custom-label-state">--</label>
         memo: 
-        <input type="text" id="memo_4" class="custom-text-memo" value="" />
+        <input type="text" id="memo_4" class="custom-text-memo" onchange="memoTextChanged(4)" value="" />
       </div>
       <div>
         No.05: 
@@ -73,7 +85,7 @@
         <button type="button" class="custom-button-control" onclick="clearParam(5)">Clear</button>
         <label id="state_5" class="custom-label-state">--</label>
         memo: 
-        <input type="text" id="memo_5" class="custom-text-memo" value="" />
+        <input type="text" id="memo_5" class="custom-text-memo" onchange="memoTextChanged(5)" value="" />
       </div>
       <div>
         No.06: 
@@ -82,7 +94,7 @@
         <button type="button" class="custom-button-control" onclick="clearParam(6)">Clear</button>
         <label id="state_6" class="custom-label-state">--</label>
         memo: 
-        <input type="text" id="memo_6" class="custom-text-memo" value="" />
+        <input type="text" id="memo_6" class="custom-text-memo" onchange="memoTextChanged(6)" value="" />
       </div>
       <div>
         No.07: 
@@ -91,7 +103,7 @@
         <button type="button" class="custom-button-control" onclick="clearParam(7)">Clear</button>
         <label id="state_7" class="custom-label-state">--</label>
         memo: 
-        <input type="text" id="memo_7" class="custom-text-memo" value="" />
+        <input type="text" id="memo_7" class="custom-text-memo" onchange="memoTextChanged(7)" value="" />
       </div>
       <div>
         No.08: 
@@ -100,7 +112,7 @@
         <button type="button" class="custom-button-control" onclick="clearParam(8)">Clear</button>
         <label id="state_8" class="custom-label-state">--</label>
         memo: 
-        <input type="text" id="memo_8" class="custom-text-memo" value="" />
+        <input type="text" id="memo_8" class="custom-text-memo" onchange="memoTextChanged(8)" value="" />
       </div>
       <div>
         No.09: 
@@ -109,7 +121,7 @@
         <button type="button" class="custom-button-control" onclick="clearParam(9)">Clear</button>
         <label id="state_9" class="custom-label-state">--</label>
         memo: 
-        <input type="text" id="memo_9" class="custom-text-memo" value="" />
+        <input type="text" id="memo_9" class="custom-text-memo" onchange="memoTextChanged(9)" value="" />
       </div>
       <div>
         No.10: 
@@ -118,7 +130,7 @@
         <button type="button" class="custom-button-control" onclick="clearParam(10)">Clear</button>
         <label id="state_10" class="custom-label-state">--</label>
         memo: 
-        <input type="text" id="memo_10" class="custom-text-memo" value="" />
+        <input type="text" id="memo_10" class="custom-text-memo" onchange="memoTextChanged(10)" value="" />
       </div>
       <div>
         No.11: 
@@ -127,7 +139,7 @@
         <button type="button" class="custom-button-control" onclick="clearParam(11)">Clear</button>
         <label id="state_11" class="custom-label-state">--</label>
         memo: 
-        <input type="text" id="memo_11" class="custom-text-memo" value="" />
+        <input type="text" id="memo_11" class="custom-text-memo" onchange="memoTextChanged(11)" value="" />
       </div>
       <div>
         No.12: 
@@ -136,7 +148,7 @@
         <button type="button" class="custom-button-control" onclick="clearParam(12)">Clear</button>
         <label id="state_12" class="custom-label-state">--</label>
         memo: 
-        <input type="text" id="memo_12" class="custom-text-memo" value="" />
+        <input type="text" id="memo_12" class="custom-text-memo" onchange="memoTextChanged(12)" value="" />
       </div>
       <div>
         No.13: 
@@ -145,7 +157,7 @@
         <button type="button" class="custom-button-control" onclick="clearParam(13)">Clear</button>
         <label id="state_13" class="custom-label-state">--</label>
         memo: 
-        <input type="text" id="memo_13" class="custom-text-memo" value="" />
+        <input type="text" id="memo_13" class="custom-text-memo" onchange="memoTextChanged(13)" value="" />
       </div>
       <div>
         No.14: 
@@ -154,7 +166,7 @@
         <button type="button" class="custom-button-control" onclick="clearParam(14)">Clear</button>
         <label id="state_14" class="custom-label-state">--</label>
         memo: 
-        <input type="text" id="memo_14" class="custom-text-memo" value="" />
+        <input type="text" id="memo_14" class="custom-text-memo" onchange="memoTextChanged(14)" value="" />
       </div>
       <div>
         No.15: 
@@ -163,7 +175,7 @@
         <button type="button" class="custom-button-control" onclick="clearParam(15)">Clear</button>
         <label id="state_15" class="custom-label-state">--</label>
         memo: 
-        <input type="text" id="memo_15" class="custom-text-memo" value="" />
+        <input type="text" id="memo_15" class="custom-text-memo" onchange="memoTextChanged(15)" value="" />
       </div>
       <div>
         No.16: 
@@ -172,7 +184,7 @@
         <button type="button" class="custom-button-control" onclick="clearParam(16)">Clear</button>
         <label id="state_16" class="custom-label-state">--</label>
         memo: 
-        <input type="text" id="memo_16" class="custom-text-memo" value="" />
+        <input type="text" id="memo_16" class="custom-text-memo" onchange="memoTextChanged(16)" value="" />
       </div>
       <br>
       <div class="split-preview">

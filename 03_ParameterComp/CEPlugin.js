@@ -14,7 +14,7 @@ class CEPlugin {
     static #requestId = 0
     #name
     #token
-    #version = "0.9.0"
+    #version = "0.9.1"
     #state = CEPlugin.DISCONNECTED
     #socket
     #promises = {}
