@@ -9,13 +9,9 @@
 </head>
 
 <body>
-  <section id="version_alert_en" hidden>
+  <section id="version_alert" hidden>
     <h2 style="color: #ff0000;">We recommend an editor with API version 0.9.1 or higher.</h2>
-    <a href="https://creatorsforum.live2d.com/c/cubismeditor51alpha/" target="_blank">Download the latest version</a><br>
-  </section>
-  <section id="version_alert_jp" hidden>
-    <h2 style="color: #ff0000;">APIバージョン0.9.1以上のエディタを推奨します。</h2>
-    <a href="https://creatorsforum.live2d.com/c/cubismeditor51alpha/" target="_blank">最新版をダウンロードする</a>
+    <a id="download_link" target="_blank">Download the latest version</a><br>
   </section>
   <h1>nizima LIVE Bridge (nizima LIVE -> Cubism Editor)</h1>
   <h2>Connection</h2>
@@ -73,27 +69,24 @@
       Note: Hiding a page will stop synchronization.
       <br>
       <div class="split-preview">
-        <div class="split-preview-param-sync-div">
-          <p class="custom-h01">nizima LIVE Cubism Parameters</p>
-          nizima LIVE ModelId：
+        <div class="split-preview-synchronization-div">
+          <p class="custom-h01">Synced Parameters</p>
+          <br>
+          <textarea id="textarea_syncedParameters" class="output-textarea-synchronization"></textarea>
+        </div>
+        <div class="split-preview-synchronization-div">
+          <p class="custom-h01">Not Synced nizima LIVE Parameters</p>
+          ModelId：
           <label id="nl_modelId">Undefined</label>
           <br>
-          Slider cannot be operated.
-          <br>
-          <table>
-            <tbody id="nlParameters"></tbody>
-          </table>
+          <textarea id="textarea_notSyncedNLParameters" class="output-textarea-synchronization"></textarea>
         </div>
-        <div class="split-preview-param-sync-div">
-          <p class="custom-h01">Cubism Editor Cubism Parameters</p>
-          Cubism Editor ModelUID：
+        <div class="split-preview-synchronization-div">
+          <p class="custom-h01">Not Synced Cubism Editor Parameters</p>
+          ModelUID：
           <label id="ce_modelId">Undefined</label>
           <br>
-          Slider cannot be operated.
-          <br>
-          <table>
-            <tbody id="ceParameters"></tbody>
-          </table>
+          <textarea id="textarea_notSyncedCEParameters" class="output-textarea-synchronization"></textarea>
         </div>
       </div>
     </div>

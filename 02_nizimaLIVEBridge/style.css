@@ -35,3 +35,14 @@ body {
   height: 100px;
   overflow-y: scroll;
 }
+
+.split-preview-synchronization-div {
+  width: 33%;
+}
+
+.output-textarea-synchronization {
+  resize: none;
+  width: 95%;
+  height: 100px;
+  overflow-y: scroll;
+}

@@ -45,12 +45,11 @@ Cubism Editorの外部アプリケーション連携設定ダイアログの接�
 13. 12を実施したタイミング「State」が「Connected and Synced」になり、パラメータの同期を開始されます。  
 同期を止めるには「Disconnect」をクリックします。クリックすると同期停止とnizima LIVEとCubism Editorとの接続が解除されます。  
 ![](images/image008.png)  
-パラメータの同期を開始すると以下のようなパラメータ名とスライダー、数値が表示されますが、スライダーは操作できません。  
-あくまでパラメータの値の変化がモデル以外で視覚的に変化していることを示すためのものになります。  
+パラメータの同期を開始すると同期しているパラメータ、同期していないnizima LIVEのパラメータ、同期していないCubism Editorのパラメータの一覧が表示されます。  
 ![](images/image009.png)  
 14. 「Suspend」をクリックすることで、パラメータの同期を一時停止することができます。  
 ![](images/image010.png)  
-    - 一時停止すると「State」が「Suspend」になります。同期を再開するには「Resume」をクリックします。  
+15. 一時停止すると「State」が「Suspend」になります。同期を再開するには「Resume」をクリックします。  
 ![](images/image011.png)  
   
 ***
@@ -100,10 +99,9 @@ Check the "Permission" checkbox for the connected application in the external ap
 13. When step 12 is performed, the “State” changes to “Connected and Synced” and synchronization of parameters starts.  
 Click "Disconnect" to stop synchronization. Clicking this will stop synchronization and disconnect the connection between nizima LIVE and Cubism Editor.  
 ![](images/image008.png)  
-When you start synchronizing parameters, the parameter name, slider, and numerical value as shown below are displayed, but the slider cannot be operated.  
-This is just to show that the change in parameter value is visually changing outside of the model.  
+When you start synchronizing parameters, a list of synchronized parameters, unsynchronized nizima LIVE parameters, and unsynchronized Cubism Editor parameters will be displayed.  
 ![](images/image009.png)  
 14. Parameter synchronization can be temporarily stopped by clicking "Suspend".  
 ![](images/image010.png)  
-    - When paused, "State" changes to "Suspend". Click "Resume" to restart synchronization.  
+15. When paused, "State" changes to "Suspend". Click "Resume" to restart synchronization.  
 ![](images/image011.png)  

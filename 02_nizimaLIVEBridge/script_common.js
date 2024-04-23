@@ -33,8 +33,11 @@ const recommendVersion = "0.9.1"
 let isUseRecommendVersion = false
 let nlSelectedModelId = -1
 let ceModelUID = "Undefined"
-let nlDisplayParametersReinit = false
-let ceDisplayParametersReinit = false
+let nlStoredParametersReinit = false
+let ceStoredParametersReinit = false
+let displayParametersReinit = false
+let nlStoredParameters = {}
+let ceStoredParameters = {}
 
 function selectModel(modelId) {
     console.log("nizima LIVE select model id: ", modelId)
@@ -211,72 +214,34 @@ function stopSync() {
 
 function clearNLParameters() {
     console.log("Clear nizima LIVE Cubism Parameters.")
-    const parameters = document.getElementById("nlParameters")
-    while (parameters.firstChild) {
-        parameters.removeChild(parameters.firstChild)
-    }
+    nlStoredParameters = {}
+    nlStoredParametersReinit = false
 }
 
 function clearCEParameters() {
     console.log("Clear Cubism Editor Cubism Parameters.")
-    const parameters = document.getElementById("ceParameters")
-    while (parameters.firstChild) {
-        parameters.removeChild(parameters.firstChild)
-    }
+    ceStoredParameters = {}
+    ceStoredParametersReinit = false
 }
 
-function displayNLParameters() {
-    console.log("Display nizima LIVE Cubism Parameters.")
+function storedNLParameters() {
+    console.log("Stored nizima LIVE Cubism Parameters.")
     if (nlSelectedModelId == -1) {
         return
     }
     nlPlugin.callMethod("GetCubismParameters", { "ModelId": String(nlSelectedModelId) }).then((message) => {
-        const parameters = document.getElementById("nlParameters")
-        // Show parameters.
+        nlStoredParameters = {
+            "Parameters": []
+        };
         for (let param of message.Data.CubismParameters) {
-            const tr = document.createElement("tr")
-            parameters.appendChild(tr)
-            
-            // Label creation.
-            const td_id = document.createElement("td")
-            parameters.appendChild(td_id)
-            const text_id = document.createTextNode(param.Id)
-            text_id.id = prefixText + prefixNL + param.Id
-            td_id.appendChild(text_id)
-            
-            // Name creation.
-            const td_name = document.createElement("td")
-            parameters.appendChild(td_name)
-            const text_name = document.createTextNode(param.Name)
-            text_name.id = prefixText + prefixNL + param.Id + suffixName
-            td_name.appendChild(text_name)
-            
-            // Slider creation.
-            const td_slider = document.createElement("td")
-            parameters.appendChild(td_slider)
-            const slider = document.createElement("input")
-            td_slider.appendChild(slider)
-            slider.type = "range"
-            slider.id = prefixSlider + prefixNL + param.Id
-            slider.value = param.DefaultValue
-            slider.min = param.Min
-            slider.max = param.Max
-            slider.step = "any"
-            slider.style = "pointer-events: none;"
-            
-            // Value creation.
-            const td_value = document.createElement("td")
-            parameters.appendChild(td_value)
-            td_value.id = prefixText + prefixNL + param.Id + suffixValue
-            const text_value = document.createTextNode("0")
-            td_value.appendChild(text_value)
+            nlStoredParameters.Parameters.push({ "Id": param.Id, "Name": param.Name })
         }
-        nlDisplayParametersReinit = true
+        nlStoredParametersReinit = true
     })
 }
 
-function displayCEParameters() {
-    console.log("Display Cubism Editor Cubism Parameters.")
+function storedCEParameters() {
+    console.log("Stored Cubism Editor Cubism Parameters.")
     cePlugin.sendMessage("GetCurrentModelUID", {}).then((message) => {
         if (message.Type == "Error") {
             return
@@ -286,50 +251,40 @@ function displayCEParameters() {
         document.getElementById("ce_modelId").textContent = ceModelUID
         
         cePlugin.sendMessage("GetParameters", { "ModelUID": ceModelUID }).then((message) => {
-            const parameters = document.getElementById("ceParameters")
-            // Show parameters.
+            ceStoredParameters = {
+                "Parameters": []
+            };
             for (let param of message.Data.Parameters) {
-                const tr = document.createElement("tr")
-                parameters.appendChild(tr)
-                
-                // Label creation.
-                const td_id = document.createElement("td")
-                parameters.appendChild(td_id)
-                const text_id = document.createTextNode(param.Id)
-                text_id.id = prefixText + prefixCE + param.Id
-                td_id.appendChild(text_id)
-                
-                // Name creation.
-                const td_name = document.createElement("td")
-                parameters.appendChild(td_name)
-                const text_name = document.createTextNode(param.Name)
-                text_name.id = prefixText + prefixCE + param.Id + suffixName
-                td_name.appendChild(text_name)
-                
-                // Slider creation.
-                const td_slider = document.createElement("td")
-                parameters.appendChild(td_slider)
-                const slider = document.createElement("input")
-                td_slider.appendChild(slider)
-                slider.type = "range"
-                slider.id = prefixSlider + prefixCE + param.Id
-                slider.value = param.Default
-                slider.min = param.Min
-                slider.max = param.Max
-                slider.step = "any"
-                slider.style = "pointer-events: none;"
-                
-                // Value creation.
-                const td_value = document.createElement("td")
-                parameters.appendChild(td_value)
-                td_value.id = prefixText + prefixCE + param.Id + suffixValue
-                const text_value = document.createTextNode("0")
-                td_value.appendChild(text_value)
-                text_value.textContent = Math.round(param.Default * 100) / 100
+                ceStoredParameters.Parameters.push({ "Id": param.Id, "Name": param.Name })
             }
-            ceDisplayParametersReinit = true
+            ceStoredParametersReinit = true
         })
     })
+}
+
+function displayParameters() {
+    let syncedMessage = ""
+    let notSyncedNLMessage = ""
+    let notSyncedCEMessage = ""
+    for (let param of nlStoredParameters.Parameters) {
+        const findParam = ceStoredParameters.Parameters.find((element) => element.Id === param.Id)
+        if (findParam !== undefined) {
+            syncedMessage += "Id: " + param.Id + "  Name: " + param.Name + "\n"
+        } else {
+            notSyncedNLMessage += "Id: " + param.Id + "  Name: " + param.Name + "\n"
+        }
+    }
+    for (let param of ceStoredParameters.Parameters) {
+        const findParam = nlStoredParameters.Parameters.find((element) => element.Id === param.Id)
+        if (findParam === undefined) {
+            notSyncedCEMessage += "Id: " + param.Id + "  Name: " + param.Name + "\n"
+        }
+    }
+    
+    document.getElementById("textarea_syncedParameters").value = syncedMessage
+    document.getElementById("textarea_notSyncedNLParameters").value = notSyncedNLMessage
+    document.getElementById("textarea_notSyncedCEParameters").value = notSyncedCEMessage
+    displayParametersReinit = true
 }
 
 function judgeRecommendVersion() {
@@ -361,10 +316,14 @@ function convertVersionStringToNum(strVer) {
 
 function changeIsNotUseRecommendVersion() {
     isUseRecommendVersion = false
+    document.getElementById("version_alert").hidden = false
     const lang = window.navigator.language
-    if (lang == "ja") {
-        document.getElementById("version_alert_jp").hidden = false
-    } else {
-        document.getElementById("version_alert_en").hidden = false
+    const langStr = lang.substr(0, 2)
+    let url = "http://link.live2d.com/download5_1_alpha_en"
+    if (langStr == "ja") {
+        url = "http://link.live2d.com/download5_1_alpha"
+    } else if (langStr == "zh"){
+        url = "http://link.live2d.com/download5_1_alpha_zh"
     }
+    document.getElementById("download_link").setAttribute("href", url)
 }

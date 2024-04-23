@@ -11,7 +11,7 @@ let execMode = ExecMode.stop
 let prevExecMode = ExecMode.stop
 let timerCEtoNL
 let suspendStarted = false
-let storedParameters = null
+let suspendStoredParameters = null
 
 window.addEventListener("DOMContentLoaded", () => {
     // Execute when the page display state changes
@@ -53,8 +53,8 @@ function startSyncFromCEToNL() {
     cePlugin.sendMessage("GetIsApproval", {}).then((message) => {
         if (message.Data.Result) {
             stopExec()
-            displayNLParameters()
-            displayCEParameters()
+            storedNLParameters()
+            storedCEParameters()
             timerCEtoNL = setInterval(frameUpdate, 33)
             cePlugin.sendMessage("NotifyChangeEditMode", { "Enabled": true })
             document.getElementById("btn_suspendAndResume").textContent = txtSuspend
@@ -77,6 +77,7 @@ function stopExec() {
     }
     cePlugin.sendMessage("NotifyChangeEditMode", { "Enabled": false })
     
+    displayParametersReinit = false
     suspendStarted = false
 }
 
@@ -84,13 +85,13 @@ function suspendAndResume() {
     console.log("Suspend and Resume.")
     if (execMode == ExecMode.CEtoNL) {
         suspendStarted = false
-        storedParameters = null
+        suspendStoredParameters = null
         execMode = ExecMode.suspendCEtoNL
         document.getElementById("btn_suspendAndResume").textContent = txtResume
         document.getElementById("state").textContent = txtSuspend
     } else {
         suspendStarted = false
-        storedParameters = null
+        suspendStoredParameters = null
         execMode = ExecMode.CEtoNL
         document.getElementById("btn_suspendAndResume").textContent = txtSuspend
         document.getElementById("state").textContent = txtConnected
@@ -98,14 +99,15 @@ function suspendAndResume() {
 }
 
 cePlugin.addEventListener("NotifyChangeEditMode", (message) => {
-    ceDisplayParametersReinit = false
+    displayParametersReinit = false
+    ceStoredParametersReinit = false
     clearCEParameters()
-    displayCEParameters()
+    storedCEParameters()
 })
 
 function frameUpdate() {
-    if (!nlDisplayParametersReinit) {
-        displayNLParameters()
+    if (!nlStoredParametersReinit) {
+        storedNLParameters()
     }
     
     cePlugin.sendMessage("GetCurrentModelUID", {}).then((message) => {
@@ -118,13 +120,20 @@ function frameUpdate() {
         }
         
         if (ceModelUID != message.Data.ModelUID) {
-            ceDisplayParametersReinit = false
+            displayParametersReinit = false
+            ceStoredParametersReinit = false
             clearCEParameters()
-            displayCEParameters()
+            storedCEParameters()
             return
         }
         
-        if (!ceDisplayParametersReinit) {
+        if (nlStoredParametersReinit &&
+            ceStoredParametersReinit &&
+            !displayParametersReinit) {
+            displayParameters()
+        }
+        
+        if (!displayParametersReinit) {
             return
         }
         
@@ -139,20 +148,23 @@ function frameUpdate() {
 function pollingSuspendStart() {
     if (!suspendStarted) {
         cePlugin.sendMessage("GetParameterValues", { ModelUID: ceModelUID }).then((message) => {
-            storedParameters = {
+            suspendStoredParameters = {
                 "ModelId": String(nlSelectedModelId),
                 "CubismParameterValues": []
             };
             
             for (let param of message.Data.Parameters) {
-                const fixValue = Math.round(param.Value * 100) / 100
-                storedParameters.CubismParameterValues.push({ "Id": param.Id, "Value": fixValue })
+                const findParam = nlStoredParameters.Parameters.find((element) => element.Id === param.Id)
+                if (findParam !== undefined) {
+                    const fixValue = Math.round(param.Value * 100) / 100
+                    suspendStoredParameters.CubismParameterValues.push({ "Id": param.Id, "Value": fixValue })
+                }
             }
             suspendStarted = true
         })
     }
-    if (storedParameters != null) {
-        nlPlugin.callMethod("SetCubismParameterValues", storedParameters)
+    if (suspendStoredParameters != null) {
+        nlPlugin.callMethod("SetCubismParameterValues", suspendStoredParameters)
     }
 }
 
@@ -164,24 +176,12 @@ function pollingParameterSend() {
         };
         
         for (let param of message.Data.Parameters) {
-            const fixValue = Math.round(param.Value * 100) / 100
-            const sliderCE = document.getElementById(prefixSlider + prefixCE + param.Id)
-            const textCEValue = document.getElementById(prefixText + prefixCE + param.Id + suffixValue)
-            if (sliderCE != null && textCEValue != null) {
-                sliderCE.value = fixValue
-                textCEValue.textContent = fixValue
-            }
-            
-            const sliderNL = document.getElementById(prefixSlider + prefixNL + param.Id)
-            const textNLValue = document.getElementById(prefixText + prefixNL + param.Id + suffixValue)
-            if (sliderNL != null && textNLValue != null) {
-                sliderNL.value = fixValue
-                textNLValue.textContent = fixValue
-                
+            const findParam = nlStoredParameters.Parameters.find((element) => element.Id === param.Id)
+            if (findParam !== undefined) {
+                const fixValue = Math.round(param.Value * 100) / 100
                 data.CubismParameterValues.push({ "Id": param.Id, "Value": fixValue })
             }
         }
-        
         nlPlugin.callMethod("SetCubismParameterValues", data)
     })
 }
