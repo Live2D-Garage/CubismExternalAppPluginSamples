@@ -17,7 +17,7 @@ Cubism Editorにてパラメータを調整し、表現した表情や動作を�
 2. ファイルメニューから任意のモデルを開きます。  
 (nizima LIVEと連携するため、連携するモデルを開いてください。)  
 3. ファイルメニューの「外部アプリケーション連携設定」を選択し、ダイアログを開きます。  
-4. 外部アプリケーション連携設定ダイアログからポート番号を設定し、三角ボタンをクリックして外部連携を有効化します。  
+4. 外部アプリケーション連携設定ダイアログからポート番号を設定し、トグルスイッチをクリックして外部連携を有効化します。  
 ![](images/image001.png)  
 5. nizima LIVEを起動します。  
 6. モデル一覧から任意のモデルを選択します。  
@@ -71,7 +71,7 @@ For security reasons, if you download and run the HTML sample, you will need to 
 2. Open any model from the file menu.  
 (To link with nizima LIVE, open the model to be linked.)  
 3. Select "External Application Integration settings" from the file menu to open the dialog.  
-4. Set the port number from the external application linkage settings dialog and click the triangle button to enable external linkage.  
+4. Set the port number from the external application linkage settings dialog and click the toggle switch to enable external linkage.  
 ![](images/image001.png)  
 5. Start nizima LIVE.  
 6. Select any model from the model list.  

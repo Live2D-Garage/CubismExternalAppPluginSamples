@@ -9,7 +9,7 @@ https://live2d-garage.github.io/CubismExternalAppPluginSamples/03_ParameterComp/
 1. Cubism Editorを起動します。  
 2. ファイルメニューから任意のモデルを開きます。  
 3. ファイルメニューの「外部アプリケーション連携設定」を選択し、ダイアログを開きます。  
-4. 外部アプリケーション連携設定ダイアログからポート番号を設定し、三角ボタンをクリックして外部連携を有効化します。  
+4. 外部アプリケーション連携設定ダイアログからポート番号を設定し、トグルスイッチをクリックして外部連携を有効化します。  
 ![](images/image001.png)  
 5. サンプルHTMLを起動します。  
 https://live2d-garage.github.io/CubismExternalAppPluginSamples/03_ParameterComp/index.html  
@@ -56,7 +56,7 @@ For security reasons, if you download and run the HTML sample, you will need to 
 1. Start Cubism Editor.  
 2. Open any model from the file menu.  
 3. Select "External Application Integration settings" from the file menu to open the dialog.  
-4. Set the port number from the external application linkage settings dialog and click the triangle button to enable external linkage.  
+4. Set the port number from the external application linkage settings dialog and click the toggle switch to enable external linkage.  
 ![](images/image001.png)  
 5. Start sample HTML.  
 https://live2d-garage.github.io/CubismExternalAppPluginSamples/03_ParameterComp/index.html  
