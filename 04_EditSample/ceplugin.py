@@ -6,18 +6,11 @@ import websockets
 import asyncio
 import os
 import time
-from pydantic import BaseModel
 import uuid
-import nest_asyncio
-nest_asyncio.apply()
 
 DEFAULTPORT=22033
 URL = "localhost"
 TOKEN_FILENAME = "token.txt"
-
-class ConnectionStatus(BaseModel):
-    IsConnected: bool
-    IsAuthenticated: bool
 
 class CEPluginClient:
     def __init__(self):
@@ -33,9 +26,11 @@ class CEPluginClient:
         self.errorHandlers:Dict[str,Coroutine[Any, Any, dict]] = {}
         self.connectionLostHandler:Coroutine[Any, Any, None] = self.connectWithRetry
         self.isRegistered = False
-        asyncio.ensure_future(self.startListen(),loop=asyncio.get_event_loop())
-        asyncio.ensure_future(self.connectWithRetry(),loop=asyncio.get_event_loop())
-    
+
+    async def start(self):
+        asyncio.ensure_future(self.startListen())
+        asyncio.ensure_future(self.connectWithRetry())
+
     def uri(self,port:int) -> str:
         return f"ws://{URL}:{port}"
     
@@ -51,7 +46,7 @@ class CEPluginClient:
                     print("Connection closed")
                     self.websocket = None
                     if(self.connectionLostHandler):
-                        asyncio.ensure_future(self.connectionLostHandler(),loop=asyncio.get_event_loop())
+                        asyncio.ensure_future(self.connectionLostHandler())
 
     async def connect(self,port:int = DEFAULTPORT):
         print("start connecting...")
@@ -77,16 +72,6 @@ class CEPluginClient:
     async def sendRaw(self, data: Dict[str, Any]):
         print(f"send: {data}")
         await self.websocket.send(json.dumps(data))
-
-    def connectionStatus(self) -> ConnectionStatus:
-        isConnected = self.websocket is not None
-        isAuthenticated = False
-        if isConnected:
-            isAuthenticated = asyncio.get_event_loop().run_until_complete(self.checkIsAuthenticated())
-        return ConnectionStatus(
-            IsConnected=isConnected,
-            IsAuthenticated=isAuthenticated
-        )
 
     async def send(self, method:str, data: dict, responseHandler: Optional[Coroutine[Any, Any, dict]] = None, eventHandler: Optional[Coroutine[Any, Any, dict]] = None, errorHandler: Optional[Coroutine[Any, Any, dict]] = None):
         guid = uuid.uuid4().hex

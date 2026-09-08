@@ -2,6 +2,7 @@ import asyncio
 from ceplugin import client
 
 async def main():
+    await client.start()
     await client.waitForRegistration()
     await client.waitForNormalPermission()
     await client.waitForEditPermission()

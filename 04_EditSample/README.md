@@ -31,6 +31,10 @@ py demo.py
 5. 外部アプリ連携のダイアログから、許可、編集を有効にする。
 6. パラメータグループの名前が`Edited Face Group`に変更される。
 
+## 更新履歴
+
+2026/9/8 最新版のPythonでも動作するように修正。
+
 
 ---
 
@@ -64,3 +68,6 @@ py demo.py
 4. The Python script will enter a waiting state for authorization.
 5. Grant permission and enable editing via the external application integration dialog.
 6. The parameter group name will be changed to `Edited Face Group`.
+
+## Update notes
+9/8/2026 - Fixed to work correctly with the latest version of Python.
